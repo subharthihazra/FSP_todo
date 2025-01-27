@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f4f9;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .todo-container {
+            margin-top: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .todo-item button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .todo-item button:hover {
+            background-color: #c82333;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            border-radius: 5px 0 0 5px;
+        }
+
+        .input-group button {
+            border-radius: 0 5px 5px 0;
+        }
+
+        .footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Todo App</h1>
+        <p>Manage your tasks efficiently</p>
+    </header>
+
+    <!-- Todo App Section -->
+    <div class="container todo-container">
+        <div class="input-group">
+            <input type="text" class="form-control" id="todo-input" placeholder="Enter a task" required>
+            <button class="btn btn-primary" id="add-btn">Add Task</button>
+        </div>
+
+        <!-- Todo List -->
+        <div id="todo-list"></div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <p>&copy; 2025 Todo App | All Rights Reserved</p>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const addBtn = document.getElementById('add-btn');
+        const todoInput = document.getElementById('todo-input');
+        const todoList = document.getElementById('todo-list');
+
+        // Add Todo Item
+        addBtn.addEventListener('click', function() {
+            const todoText = todoInput.value.trim();
+
+            if (todoText === '') {
+                alert('Please enter a task!');
+                return;
+            }
+
+            const todoItem = document.createElement('div');
+            todoItem.classList.add('todo-item');
+
+            todoItem.innerHTML = `
+                <span>${todoText}</span>
+                <button class="delete-btn">Delete</button>
+            `;
+
+            // Add delete functionality to the button
+            todoItem.querySelector('.delete-btn').addEventListener('click', function() {
+                todoList.removeChild(todoItem);
+            });
+
+            // Append the new todo item to the list
+            todoList.appendChild(todoItem);
+
+            // Clear the input field
+            todoInput.value = '';
+        });
+    </script>
+
+</body>
+</html>
